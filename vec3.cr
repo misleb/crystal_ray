@@ -25,7 +25,7 @@ struct Vec3
   end
 
   def length_squared
-    x*x + y*y + y*y
+    x*x + y*y + z*z
   end
 
   def length
