@@ -9,19 +9,23 @@ struct Vec3
   end
 
   def -(other : Vec3)
-    Vec3.new(self.x - other.x, self.y - other.y, self.z - other.z)
+    Vec3.new(x - other.x, y - other.y, z - other.z)
   end
 
   def +(other : Vec3)
-    Vec3.new(self.x + other.x, self.y + other.y, self.z + other.z)
+    Vec3.new(x + other.x, y + other.y, z + other.z)
   end
 
   def *(t : Float64)
-    Vec3.new(self.x * t, self.y * t, self.z * t)
+    Vec3.new(x * t, y * t, z * t)
   end
 
   def /(t : Float64)
     self * (1/t)
+  end
+
+  def dot(other : Vec3) : Float64
+    x*other.x + y*other.y + z*other.z
   end
 
   def length_squared

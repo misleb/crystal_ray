@@ -2,10 +2,27 @@ require "./overloads"
 require "./vec3"
 require "./ray"
 
-def ray_color(r : Ray)
+def ray_color(r : Ray) : Color
+  t = hit_sphere(Point3.new(0,0,-1), 0.5, r);
+
+  if t > 0
+    n = (r.at(t) - Vec3.new(0,0,-1)).unit_vector
+    return 0.5*Color.new(n.x+1, n.y+1, n.z+1)
+  end
+
   unit_direction = r.direction.unit_vector
   t = 0.5 * (unit_direction.y + 1.0)
   (1.0-t)*Color.new(1.0, 1.0, 1.0) + t*Color.new(0.5, 0.7, 1.0)
+end
+
+def hit_sphere(center : Point3, radius : Float64, r : Ray) : Float64
+  oc = r.origin - center
+  a = r.direction.length_squared
+  half_b = oc.dot(r.direction)
+  c = oc.length_squared - radius*radius
+  discriminant = half_b*half_b - a*c
+
+  discriminant < 0 ? -1.0 : (-half_b - Math.sqrt(discriminant) ) / a
 end
 
 # Image
